@@ -1,0 +1,28 @@
+﻿@page "/products"
+
+@using SistemaGerenciador.Domain
+@using SistemaGerenciador.Regras.Products.Interfaces
+
+@inject IVisualizarProdutoPorNome produtoPorNome
+
+<h3>LISTA PRODUTOS</h3>
+
+<ul>
+    @foreach (var prod in _products)
+    {
+        <li>
+            @prod.Name
+        </li>
+    }
+</ul>
+
+
+@code {
+     private List<Product> _products = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _products = (await produtoPorNome.ExecuteAsync("")).ToList();
+    }
+
+}
